@@ -3,9 +3,15 @@
 
 #include"groups.h"
 
-template<typename...groups>
-class board
+namespace raw_nodes
 {
 
-	std::tuple<groups...>
-};
+	template<bool dynamic_allocations, typename...groups>
+	class board
+	{
+
+		std::tuple<groups...> static_groups;
+
+	};
+
+}

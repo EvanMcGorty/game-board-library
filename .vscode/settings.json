@@ -42,5 +42,7 @@
         "xtr1common": "cpp",
         "xutility": "cpp",
         "array": "cpp"
-    }
+    },
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000
 }
