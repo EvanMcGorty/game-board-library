@@ -1,0 +1,47 @@
+
+class GroupExample
+{
+public:
+
+	//how a group should be able to recognize the spacial significance
+	//of one of its members to determine its connections
+	struct Key
+	{
+		members;
+	};
+
+	size_t connection_count(Key* p) const
+	{
+		logic;
+		return something;
+	}
+
+	Connection nth_connection(Key* p, size_t n) const
+	{
+		logic;
+
+		maybe
+		{
+			throw bad_index_exception;
+			or just
+			abort();
+		}
+
+		return something;
+	}
+
+	//this must only push back on target!
+	//no clearing it or assigning to it.
+	void all_connections(Key* p, std::vector<Connection>& target) const
+	{
+		target.reserve(target.size() + calculated_connection_count);
+
+		looping through connections
+		{
+			target.push_back(current);
+		}
+	}
+
+	data representation; //in terms of Node*
+
+};
