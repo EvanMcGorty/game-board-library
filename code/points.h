@@ -137,15 +137,15 @@ namespace raw_nodes
 
 		Connection nth_connection(size_t n) const override
 		{
-			auto c = other.connection_count()
-				if (c <= n)
-				{
-					return owner->nth_connection(key, owner->connection_count() - c);
-				}
-				else
-				{
-					return other.nth_connection(c);
-				}
+			auto c = other.connection_count();
+			if (c <= n)
+			{
+				return owner->nth_connection(key, owner->connection_count() - c);
+			}
+			else
+			{
+				return other.nth_connection(c);
+			}
 		}
 
 		void all_connections(std::vector<Connection>& target) const override

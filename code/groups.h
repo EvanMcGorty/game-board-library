@@ -1,5 +1,6 @@
 #pragma once
 #include "points.h"
+#include<memory>
 
 namespace raw_nodes
 {
@@ -40,7 +41,7 @@ namespace raw_nodes
 			else if (p->ind == nodes.size() - 1)
 			{
 				assert(n == 0);
-				return nodes[nodes.size() - 2]
+				return nodes[nodes.size() - 2];
 			}
 			else
 			{
@@ -75,8 +76,39 @@ namespace raw_nodes
 			}
 		}
 
+		static size_t static_node_count(); //defined with specialization outside of class
+
+		size_t dynamic_node_count() const;
+
+		size_t total_node_count() const
+		{
+			return dynamic_node_count()+total_node_count();
+		}
+
 		NodeList nodes;
 	};
+
+	template<size_t length>
+	size_t GenericLine<std::array<Node*,length>>::static_node_count()
+	{
+		return length;
+	}
+
+	template<size_t length>
+	size_t GenericLine<std::array<Node*,length>>::dynamic_node_count()
+	{
+		return 0; //the length is known at compiletime;
+	}
+
+	size_t GenericLine<std::vector<Node*>>::static_node_count()
+	{
+		return 0;
+	}
+
+	size_t GenericLine<std::vector<Node*>>::dynamic_node_count()
+	{
+		return nodes.size();
+	}
 
 
 	//yeah, i could re-copy and paste the class.
@@ -85,14 +117,14 @@ namespace raw_nodes
 	template<size_t length>
 	//set sized line where each node is connected to the previous and next.
 	//the first and last nodes are not connected.
-	using Line = GenericLine <std::array<Node*, length>>;
+	using Line = GenericLine <std::array<std::unique_ptr<Node>, length>>;
 
 	//dynamically sized line where each node is connected to the previous and next.
 	//the first and last nodes are not connected.
 	//this is really only intended for a varying its length at initialization.
 	//that being said, if you're careful you can do stuff like push_back, insert, etc.
 	//remember to re shift around keys if necessary. the class does not worry about this stuff.
-	using GrowableLine = GenericLine<std::vector<Node*>>;
+	using GrowableLine = GenericLine<std::vector<std::unique_ptr<Node>>>;
 
 
 
