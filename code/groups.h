@@ -1,15 +1,17 @@
 #pragma once
 #include "points.h"
 #include<memory>
+#include<assert.h> //assert
+#include<stdlib.h> //abort
 
 namespace raw_nodes
 {
 
-	//NodeList may be std::array<Node*,x>, std::vector<Node*>,
+	//NodeList may be std::array<std::unique_ptr<Node>,x>, std::vector<std::unique_ptr<Node>>,
 	template<typename NodeList>
-	struct GenericLine
+	class GenericLine
 	{
-
+	public:
 		struct Key
 		{
 			size_t ind;
@@ -63,20 +65,20 @@ namespace raw_nodes
 
 			if (p->ind == 0)
 			{
-				target.append(nodes[1]);
+				target.push_back(nodes[1]);
 			}
 			else if (p->ind == nodes.size() - 1)
 			{
-				target.appendnodes([nodes.size() - 2]);
+				target.push_back(nodes[nodes.size() - 2]);
 			}
 			else
 			{
-				target.append(nodes[p->ind - 1]);
-				target.append(nodes[p->ind + 1]);
+				target.push_back(nodes[p->ind - 1]);
+				target.push_back(nodes[p->ind + 1]);
 			}
 		}
 
-		static size_t static_node_count(); //defined with specialization outside of class
+		static constexpr size_t static_node_count(); //defined with specialization outside of class
 
 		size_t dynamic_node_count() const;
 
@@ -89,23 +91,25 @@ namespace raw_nodes
 	};
 
 	template<size_t length>
-	size_t GenericLine<std::array<Node*,length>>::static_node_count()
+	size_t GenericLine<std::array<std::unique_ptr<Node>,length>>::static_node_count()
 	{
 		return length;
 	}
 
 	template<size_t length>
-	size_t GenericLine<std::array<Node*,length>>::dynamic_node_count()
+	size_t GenericLine<std::array<std::unique_ptr<Node>,length>>::dynamic_node_count()
 	{
 		return 0; //the length is known at compiletime;
 	}
 
-	size_t GenericLine<std::vector<Node*>>::static_node_count()
+	template<>
+	size_t GenericLine<std::vector<std::unique_ptr<Node>>>::static_node_count()
 	{
-		return 0;
+		return 0; //length only varies at runtime
 	}
 
-	size_t GenericLine<std::vector<Node*>>::dynamic_node_count()
+	template<>
+	size_t GenericLine<std::vector<std::unique_ptr<Node>>>::dynamic_node_count()
 	{
 		return nodes.size();
 	}

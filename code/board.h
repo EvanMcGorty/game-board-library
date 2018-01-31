@@ -15,7 +15,7 @@ namespace raw_nodes
 	template<typename first_group, typename...groups>
 	constexpr size_t total_static_allocations()
 	{
-		return first_group+total_static_allocations<groups...>();
+		return first_group::static_node_count()+total_static_allocations<groups...>();
 	}
 
 	template<bool exists>
