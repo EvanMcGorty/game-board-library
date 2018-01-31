@@ -41,7 +41,10 @@
         "xstring": "cpp",
         "xtr1common": "cpp",
         "xutility": "cpp",
-        "array": "cpp"
+        "array": "cpp",
+        "algorithm": "cpp",
+        "iterator": "cpp",
+        "string": "cpp"
     },
     "files.autoSave": "afterDelay",
     "files.autoSaveDelay": 1000
