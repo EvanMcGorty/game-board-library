@@ -6,11 +6,11 @@
 namespace raw_nodes
 {
 
-	template<bool dynamic_allocations, typename...group_types>
+	template<typename...group_types>
 	class board
 	{
 		
-		std::tuple<groups...> groups;
+		std::tuple<group_types...> groups;
 
 	};
 
