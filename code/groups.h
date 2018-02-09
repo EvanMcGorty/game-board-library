@@ -1,5 +1,5 @@
 #pragma once
-#include "points.h"
+#include"points.h"
 #include<memory>
 #include<assert.h> //assert
 #include<stdlib.h> //abort
@@ -78,41 +78,9 @@ namespace raw_nodes
 			}
 		}
 
-		static constexpr size_t static_node_count(); //defined with specialization outside of class
-
-		size_t dynamic_node_count() const;
-
-		size_t total_node_count() const
-		{
-			return dynamic_node_count()+total_node_count();
-		}
-
 		NodeList nodes;
 	};
 
-	template<size_t length>
-	size_t GenericLine<std::array<std::unique_ptr<Node>,length>>::static_node_count()
-	{
-		return length;
-	}
-
-	template<size_t length>
-	size_t GenericLine<std::array<std::unique_ptr<Node>,length>>::dynamic_node_count()
-	{
-		return 0; //the length is known at compiletime;
-	}
-
-	template<>
-	size_t GenericLine<std::vector<std::unique_ptr<Node>>>::static_node_count()
-	{
-		return 0; //length only varies at runtime
-	}
-
-	template<>
-	size_t GenericLine<std::vector<std::unique_ptr<Node>>>::dynamic_node_count()
-	{
-		return nodes.size();
-	}
 
 
 	//yeah, i could re-copy and paste the class.

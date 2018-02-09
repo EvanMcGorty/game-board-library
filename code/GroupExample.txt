@@ -42,23 +42,7 @@ public:
 		}
 	}
 
-	static size_t static_node_count()
-	{
-		return how many nodes this group will always have;
-	}
-
-	size_t dynamic_node_count() const
-	{
-		return how many extra nodes this particular instance has due to how it was constructed and etc;
-	}
-
-	size_t total_node_count() const
-	{
-		return dynamic_node_count()+static_node_count();//or some possibly better way to calculate this
-	}
-
 	
-
 	data representation; //in terms of Node*
 
 };
