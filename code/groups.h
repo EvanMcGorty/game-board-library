@@ -2,7 +2,6 @@
 #include"points.h"
 #include<memory>
 #include<assert.h> //assert
-#include<stdlib.h> //abort
 
 namespace raw_nodes
 {
@@ -17,11 +16,11 @@ namespace raw_nodes
 			size_t ind;
 		};
 
-		size_t connection_count(Key* p) const
+		size_t connection_count(Key const& p) const
 		{
-			assert(p->ind >= nodes.size());
+			assert(p.ind >= nodes.size());
 
-			if (p->ind == 0 || p->ind == nodes.size() - 1)
+			if (p.ind == 0 || p.ind == nodes.size() - 1)
 			{
 				return 1;
 			}
@@ -31,16 +30,16 @@ namespace raw_nodes
 			}
 		}
 
-		Connection nth_connection(Key* p, size_t n) const
+		Connection nth_connection(Key const& p, size_t n) const
 		{
-			assert(p->ind < nodes.size());
+			assert(p.ind < nodes.size());
 
-			if (p->ind == 0)
+			if (p.ind == 0)
 			{
 				assert(n == 0);
 				return nodes[1];
 			}
-			else if (p->ind == nodes.size() - 1)
+			else if (p.ind == nodes.size() - 1)
 			{
 				assert(n == 0);
 				return nodes[nodes.size() - 2];
@@ -50,31 +49,31 @@ namespace raw_nodes
 				assert(n <= 1);
 				if (n == 0)
 				{
-					return nodes[p->ind - 1];
+					return nodes[p.ind - 1];
 				}
 				else //n==1
 				{
-					return nodes[p->ind + 1];
+					return nodes[p.ind + 1];
 				}
 			}
 		}
 
-		void all_connections(Key* p, std::vector<Connection>& target) const
+		void all_connections(Key const& p, std::vector<Connection>& target) const
 		{
-			assert(p->ind < nodes.size());
+			assert(p.ind < nodes.size());
 
-			if (p->ind == 0)
+			if (p.ind == 0)
 			{
 				target.push_back(nodes[1]);
 			}
-			else if (p->ind == nodes.size() - 1)
+			else if (p.ind == nodes.size() - 1)
 			{
 				target.push_back(nodes[nodes.size() - 2]);
 			}
 			else
 			{
-				target.push_back(nodes[p->ind - 1]);
-				target.push_back(nodes[p->ind + 1]);
+				target.push_back(nodes[p.ind - 1]);
+				target.push_back(nodes[p.ind + 1]);
 			}
 		}
 

@@ -3,28 +3,34 @@ class GroupExample
 {
 public:
 
+	GroupExample()
+	{
+		initialize data representation with keys.
+
 	//how a group should be able to recognize the spacial significance
-	//of one of its members to determine its connections
+	//of one of its members to find it and determine its connections
 	struct Key
 	{
 		members;
 	};
 
-	size_t connection_count(Key* p) const
+	
+
+	size_t connection_count(Key const& p) const
 	{
 		logic;
 		return something;
 	}
 
-	Connection nth_connection(Key* p, size_t n) const
+	Key nth_connection(Key const& p, size_t n) const
 	{
 		logic;
 
 		maybe
 		{
-			throw bad_index_exception;
+			throw some_sort_of_bad_index_exception;
 			or just
-			abort();
+			assert(false);
 		}
 
 		return something;
@@ -32,7 +38,7 @@ public:
 
 	//this must only push back on target!
 	//no clearing it or assigning to it.
-	void all_connections(Key* p, std::vector<Connection>& target) const
+	void all_connections(Key const& p, std::vector<Key>& target) const
 	{
 		target.reserve(target.size() + calculated_connection_count);
 
@@ -40,6 +46,12 @@ public:
 		{
 			target.push_back(current);
 		}
+	}
+
+	//get a connection to a key
+	Connection get(Key const& a)
+	{
+		return something
 	}
 
 	
